@@ -12,8 +12,7 @@ class Mentalist(Member):
 
     @_mana.setter
     def _mana(self, value):
-        self.__mana = value
-
+        self.__mana = max(0, min(100, value))
 
     def act(self, operator):
         if self.__mana <20:
@@ -27,5 +26,3 @@ class Mentalist(Member):
         self.__mana = min(100, self.__mana + 50)
         print(self._first_name, self._last_name, "recharge son mana à", self.__mana)
 
-Alexane = 
-Alexane.act()
