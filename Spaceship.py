@@ -31,10 +31,8 @@ class Spaceship:
 
     @crew.setter
     def crew(self, value):
-        if isinstance(value, list):
-            self.__crew = value
-        else:
-            print("Erreur : crew doit être une liste")
+        self.__crew = value
+
 
     @property
     def condition(self):
