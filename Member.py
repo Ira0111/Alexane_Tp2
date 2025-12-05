@@ -6,39 +6,39 @@ class Member:
         self.__age = age
 
     @property
-    def _first_name(self):
+    def first_name(self):
         return self.__first_name
 
-    @_first_name.setter
-    def _first_name(self, value):
+    @first_name.setter
+    def first_name(self, value):
         self.__first_name = value
 
     @property
-    def _last_name(self):
+    def last_name(self):
         return self.__last_name
 
-    @_last_name.setter
-    def _last_name(self, value):
+    @last_name.setter
+    def last_name(self, value):
         self.__last_name = value
 
     @property
-    def _gender(self):
+    def gender(self):
         return self.__gender
 
-    @_gender.setter
-    def _gender(self, value):
+    @gender.setter
+    def gender(self, value):
         self.__gender = value
 
     @property
-    def _age(self):
+    def age(self):
         return self.__age
 
-    @_age.setter
-    def _age(self, value):
+    @age.setter
+    def age(self, value):
         self.__age = value
 
     def introduce_yourself(self):
-        if self.__gender == "femme":
-            print("Je suis", self.__first_name, self.__last_name, "je suis une femme de", self.__age, "ans.")
-        elif self.__gender == "homme":
-            print("Je suis", self.__first_name, self.__last_name, "je suis un homme de", self.__age, "ans.")
+        if self.gender == "femme":
+            print("Je suis", self.first_name, self.last_name, "je suis une femme de", self.age, "ans.")
+        elif self.gender == "homme":
+            print("Je suis", self.first_name, self.last_name, "je suis un homme de", self.age, "ans.")

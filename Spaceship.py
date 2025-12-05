@@ -10,55 +10,55 @@ class Spaceship:
         self.__condition = condition
 
     @property
-    def _name(self):
+    def name(self):
         return self.__name
 
-    @_name.setter
-    def _name(self, value):
+    @name.setter
+    def name(self, value):
         self.__name = value
 
     @property
-    def _shipType(self):
+    def shipType(self):
         return self.__shipType
 
-    @_shipType.setter
-    def _shipType(self, value):
+    @shipType.setter
+    def shipType(self, value):
         self.__shipType = value
 
     @property
-    def _crew(self):
+    def crew(self):
         return self.__crew
 
-    @_crew.setter
-    def _crew(self, value):
+    @crew.setter
+    def crew(self, value):
         if isinstance(value, list):
             self.__crew = value
         else:
             print("Erreur : crew doit être une liste")
 
     @property
-    def _condition(self):
+    def condition(self):
         return self.__condition
 
-    @_condition.setter
-    def _condition(self, value):
+    @condition.setter
+    def condition(self, value):
         self.__condition = value
 
     def append_member(self, member: Member):
         if self.__crew >= 10:
-            print("L'Equipage est complet : imposible d'ajouter", member.__first_name, member.__last_name)
+            print("L'Equipage est complet : imposible d'ajouter", member.first_name, member.last_name)
         else:
             self.__crew.append(member)
-            print(member.__first_name, member.__last_name, "a été ajouter à l'equipage du vaisseau", self.__name)
+            print(member.first_name, member.last_name, "a été ajouter à l'equipage du vaisseau", self.name)
 
     def check_preparation(self):
         has_technician = False
         has_pilot = False
-        if len(self.__crew) >= 2:
-            for member in self.__crew:
+        if len(self.crew) >= 2:
+            for member in self.crew:
                 if isinstance(member, Operator):
-                    if member._role == "pilot":
+                    if member.role == "pilot":
                         has_pilot = True
-                    elif member._role == "technicien":
+                    elif member.role == "technicien":
                         has_technician = True
         return has_technician and has_pilot

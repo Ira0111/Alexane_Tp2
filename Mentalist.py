@@ -7,22 +7,22 @@ class Mentalist(Member):
         self.__mana = mana 
 
     @property
-    def _mana(self):
+    def mana(self):
         return self.__mana
 
-    @_mana.setter
-    def _mana(self, value):
+    @mana.setter
+    def mana(self, value):
         self.__mana = max(0, min(100, value))
 
     def act(self, operator):
-        if self.__mana <20:
-            print(self.__first_name, self.__last_name, "n'as pas assez de mana pour agir")
+        if self.mana <20:
+            print(self.first_name, self.last_name, "n'as pas assez de mana pour agir")
         else:
-            self.__mana -= 20
-            print(self.__first_name, self.__last_name, "influence", operator.__first_name, operator.__last_name, "pour agir :")
+            self.mana -= 20
+            print(self.first_name, self.last_name, "influence", operator.first_name, operator.last_name, "pour agir :")
             operator.act()
         
     def recharge_mana(self):
-        self.__mana = min(100, self.__mana + 50)
-        print(self._first_name, self._last_name, "recharge son mana à", self.__mana)
+        self.mana = min(100, self.__mana + 50)
+        print(self.first_name, self.last_name, "recharge son mana à", self.mana)
 
