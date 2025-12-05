@@ -7,7 +7,7 @@ class Spaceship:
         self.__name = name
         self.__shipType = shipType
         self.__crew = []
-        self.__condition = condition
+        self.__condition = condition 
 
     @property
     def name(self):
@@ -44,10 +44,10 @@ class Spaceship:
 
     def append_member(self, member: Member):
         if len(self.crew) >= 10:
-            print("L'Equipage est complet : imposible d'ajouter", member.first_name, member.last_name)
+            print("L'équipage est complet : imposible d'ajouter", member.first_name, member.last_name)
         else:
             self.crew.append(member)
-            print(member.first_name, member.last_name, "a été ajouter à l'equipage du vaisseau", self.name)
+            print(member.first_name, member.last_name, "a été ajouter à l'équipage du vaisseau", self.name)
 
     def check_preparation(self):
         has_technician = False
@@ -60,3 +60,9 @@ class Spaceship:
                     elif member.role == "technicien":
                         has_technician = True
         return has_technician and has_pilot
+    
+    def display_crew(self):
+        print("👥 Équipage du vaisseau", self.name)
+        for member in self.crew:
+            role = getattr(member, "role", "inconnu")
+            print("-", member.first_name, member.last_name, "(", role, ")")
