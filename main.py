@@ -6,4 +6,4 @@ from Fleet import*
 import json 
 
 bayta = Spaceship("Bayata", "marchand")
-bayta.display_crew
+
