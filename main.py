@@ -5,5 +5,6 @@ from Spaceship import*
 from Fleet import*
 import json 
 
-bayta = Spaceship("Bayata", "marchand")
+# bayta = Spaceship("Bayata", "marchand")
 
+print(Spaceship.__init__.__code__.co_varnames)

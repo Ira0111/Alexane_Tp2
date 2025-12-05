@@ -3,11 +3,11 @@ from Operator import*
 
 
 class Spaceship:
-    def __init__(self, name, shipType):
+    def __init__(self, name, shipType, condition):
         self.__name = name
         self.__shipType = shipType
         self.__crew = []
-        self.__condition = "opérationnel" 
+        self.__condition = condition
 
     @property
     def name(self):
