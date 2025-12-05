@@ -1,4 +1,4 @@
-from Member import*
+from classes.Member import*
 
 class Operator(Member):
     def __init__(self, first_name, last_name, gender, age, role, experience = 0):

@@ -1,9 +1,8 @@
-from Member import*
-from Operator import*
-from Spaceship import*
+from classes.Member import*
+from classes.Operator import*
+from classes.Spaceship import*
 
-
-class Spaceship:
+class Fleet:
     def __init__(self, name):
         self.__name = name
         self.__spaceships = []
@@ -31,7 +30,7 @@ class Spaceship:
             self.spaceships.append(spaceship)
             print("Le vaisseau", spaceship.name, "a été ajouter dans la flotte", self.name)
 
-    def statisticss(self, ):
+    def statisticss(self):
         total_members = 0
         role_count = {}
         total_experience = 0

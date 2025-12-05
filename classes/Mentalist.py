@@ -1,5 +1,5 @@
-from Member import*
-from Operator import*
+from classes.Member import*
+from classes.Operator import*
 
 class Mentalist(Member):
     def __init__(self, first_name, last_name, gender, age, mana = 100):
