@@ -45,10 +45,10 @@ class Spaceship:
         self.__condition = value
 
     def append_member(self, member: Member):
-        if self.__crew >= 10:
+        if len(self.crew) >= 10:
             print("L'Equipage est complet : imposible d'ajouter", member.first_name, member.last_name)
         else:
-            self.__crew.append(member)
+            self.crew.append(member)
             print(member.first_name, member.last_name, "a été ajouter à l'equipage du vaisseau", self.name)
 
     def check_preparation(self):
