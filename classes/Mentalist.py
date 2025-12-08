@@ -16,7 +16,7 @@ class Mentalist(Member):
 
     def act(self, operator):
         if self.mana <20:
-            print(self.first_name, self.last_name, "n'as pas assez de mana pour agir")
+            print(self.first_name, self.last_name, "n'as pas assez de mana pour influencer", operator.first_name, operator.last_name)
         else:
             self.mana -= 20
             print(self.first_name, self.last_name, "influence", operator.first_name, operator.last_name, "pour agir :")
