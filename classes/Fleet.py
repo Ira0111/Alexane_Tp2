@@ -30,7 +30,7 @@ class Fleet:
             self.spaceships.append(spaceship)
             print("Le vaisseau", spaceship.name, "a été ajouter dans la flotte", self.name)
 
-    def statisticss(self):
+    def statistics(self):
         total_members = 0
         role_count = {}
         total_experience = 0
