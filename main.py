@@ -82,13 +82,17 @@ def menu():
 
             case "5":
                 ship_name = input("Nom du vaisseau : ")
+                found = False
                 for ship in fleet.spaceships:
                     if ship.name == ship_name:
                         if ship.check_preparation():
-                            print("✅ Le vaisseau est prêt !")
+                            print("Le vaisseau est prêt !")
                         else:
-                            print("❌ Le vaisseau n'est pas prêt.")
+                            print("Le vaisseau n'est pas prêt.")
+                        found = True
                         break
+                if not found:
+                    print("Aucun vaisseau nommé", ship_name, "n'a été trouvé dans la flotte.")
 
             case "6":
                 fleet.statistics()
