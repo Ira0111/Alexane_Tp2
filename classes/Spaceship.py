@@ -1,5 +1,6 @@
 from classes.Member import*
 from classes.Operator import*
+from classes.Mentalist import*
 
 class Spaceship:
     def __init__(self, name, shipType, condition="opérationnel"):
@@ -49,16 +50,25 @@ class Spaceship:
             print(member.first_name, member.last_name, "a été ajouter à l'équipage du vaisseau", self.name)
 
     def check_preparation(self):
-        has_technician = False
         has_pilot = False
-        if len(self.crew) >= 2:
-            for member in self.crew:
-                if isinstance(member, Operator):
-                    if member.role == "pilot":
-                        has_pilot = True
-                    elif member.role == "technicien":
-                        has_technician = True
-        return has_technician and has_pilot
+        has_technician = False
+        has_powerful_mentalist = False
+
+        for member in self.crew:
+            role = getattr(member, "role", None)
+            if role == "pilot":
+                has_pilot = True
+            elif role == "technicien":
+                has_technician = True
+            if isinstance(member, Mentalist) and getattr(member, "mana", 0) >= 50:
+                has_powerful_mentalist = True
+
+        print("\n🔍 Vérification de la préparation du vaisseau", self.name)
+        print("Pilote :", "Check" if has_pilot else "X")
+        print("Technicien :", "Check " if has_technician else "X")
+        print("Mentaliste avec mana ≥ 50 :", "Check" if has_powerful_mentalist else "X")
+
+        return has_pilot and has_technician and has_powerful_mentalist
     
     def remove_member(self, last_name : str,):
         found = False
