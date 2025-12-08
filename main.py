@@ -6,102 +6,75 @@ from classes.Fleet import*
 import json 
 
 
-pilote = Operator("Jean", "Dupont", "Homme", 35, "pilot")
-technicien = Operator("Alice", "Martin", "Femme", 28, "technicien")
-commandant = Operator("Bel", "Riose", "Homme", 48, "commandant")
-mentaliste = Mentalist("Clara", "Durand", "Femme", 40)
+fleet = Fleet("Galactica")
 
-# --- Création d'un vaisseau ---
-bayta = Spaceship("Bayta", "marchand")
-bayta.append_member(pilote)
-bayta.append_member(technicien)
-bayta.append_member(commandant)
-bayta.append_member(mentaliste)
+while True:
+    print("\n=== MENU PRINCIPAL ===")
+    print("1. Créer un vaisseau")
+    print("2. Ajouter un membre à un vaisseau")
+    print("3. Afficher l'équipage d'un vaisseau")
+    print("4. Supprimer un membre d'un vaisseau")
+    print("5. Vérifier la préparation d'un vaisseau")
+    print("6. Afficher les statistiques de la flotte")
+    print("0. Quitter")
 
-bayta.display_crew()
+    choice = input("Votre choix : ")
 
-print("\n=== Vérification préparation ===")
-if bayta.check_preparation():
-    print("✅ Le vaisseau Bayta est prêt à partir !")
-else:
-    print("❌ Le vaisseau Bayta n'est pas prêt.")
+    match choice:
+        case "1":
+            ship_name = input("Nom du vaisseau : ")
+            ship_type = input("Type du vaisseau (marchand/guerre) : ")
+            ship = Spaceship(ship_name, ship_type)
+            fleet.append_spaceship(ship)
 
-print("\n=== Suppression d'un membre ===")
-bayta.remove_member("Riose")
-bayta.display_crew()
+        case "2":
+            ship_name = input("Nom du vaisseau : ")
+            for ship in fleet.spaceships:
+                if ship.name == ship_name:
+                    first_name = input("Prénom : ")
+                    last_name = input("Nom : ")
+                    gender = input("Genre (homme/femme) : ")
+                    age = int(input("Âge : "))
+                    role = input("Rôle (pilote/technicien/commandant) : ")
+                    crew_member = Operator(first_name, last_name, gender, age, role)
+                    ship.append_member(crew_member)
+                    break
 
-def menu():
-    fleet = Fleet("Alliance Galactique")
+        case "3":
+            ship_name = input("Nom du vaisseau : ")
+            for ship in fleet.spaceships:
+                if ship.name == ship_name:
+                    ship.display_crew()
+                    break
 
-    while True:
-        print("\n=== MENU PRINCIPAL ===")
-        print("1. Créer un vaisseau")
-        print("2. Ajouter un membre à un vaisseau")
-        print("3. Afficher l'équipage d'un vaisseau")
-        print("4. Supprimer un membre d'un vaisseau")
-        print("5. Vérifier la préparation d'un vaisseau")
-        print("6. Afficher les statistiques de la flotte")
-        print("0. Quitter")
+        case "4":
+            ship_name = input("Nom du vaisseau : ")
+            last_name = input("Nom du membre à supprimer : ")
+            for ship in fleet.spaceships:
+                if ship.name == ship_name:
+                    ship.remove_member(last_name)
+                    break
 
-        choice = input("Votre choix : ")
+        case "5":
+            ship_name = input("Nom du vaisseau : ")
+            found = False
+            for ship in fleet.spaceships:
+                if ship.name == ship_name:
+                    if ship.check_preparation():
+                        print("Le vaisseau est prêt !")
+                    else:
+                        print("Le vaisseau n'est pas prêt.")
+                    found = True
+                    break
+            if not found:
+                print("Aucun vaisseau nommé", ship_name, "n'a été trouvé dans la flotte.")
 
-        match choice:
-            case "1":
-                ship_name = input("Nom du vaisseau : ")
-                ship_type = input("Type du vaisseau (marchand/guerre) : ")
-                ship = Spaceship(ship_name, ship_type)
-                fleet.append_spaceship(ship)
+        case "6":
+            fleet.statistics()
 
-            case "2":
-                ship_name = input("Nom du vaisseau : ")
-                for ship in fleet.spaceships:
-                    if ship.name == ship_name:
-                        first_name = input("Prénom : ")
-                        last_name = input("Nom : ")
-                        gender = input("Genre (homme/femme) : ")
-                        age = int(input("Âge : "))
-                        role = input("Rôle (pilote/technicien/commandant) : ")
-                        crew_member = Operator(first_name, last_name, gender, age, role)
-                        ship.append_member(crew_member)
-                        break
+        case "0":
+            print("Au revoir 👋")
+            break
 
-            case "3":
-                ship_name = input("Nom du vaisseau : ")
-                for ship in fleet.spaceships:
-                    if ship.name == ship_name:
-                        ship.display_crew()
-                        break
-
-            case "4":
-                ship_name = input("Nom du vaisseau : ")
-                last_name = input("Nom du membre à supprimer : ")
-                for ship in fleet.spaceships:
-                    if ship.name == ship_name:
-                        ship.remove_member(last_name)
-                        break
-
-            case "5":
-                ship_name = input("Nom du vaisseau : ")
-                found = False
-                for ship in fleet.spaceships:
-                    if ship.name == ship_name:
-                        if ship.check_preparation():
-                            print("Le vaisseau est prêt !")
-                        else:
-                            print("Le vaisseau n'est pas prêt.")
-                        found = True
-                        break
-                if not found:
-                    print("Aucun vaisseau nommé", ship_name, "n'a été trouvé dans la flotte.")
-
-            case "6":
-                fleet.statistics()
-
-            case "0":
-                print("Au revoir 👋")
-                break
-
-            case _:
-                print("Choix invalide, réessayez.")
-
-menu()
+        case _:
+            print("Choix invalide, réessayez.")
