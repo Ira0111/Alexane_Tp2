@@ -8,7 +8,7 @@ import json, ast
 def save_data(fleet, file_name="data.json"):
     with open(file_name, "w", encoding="utf-8") as file:
         json.dump(fleet, file, default=custom_serializer, indent=4, ensure_ascii=False)
-    print("Flotte sauvegardée dans", file_name)
+    print("Flotte sauvegardée")
 
 
 def custom_serializer(obj):
@@ -79,13 +79,14 @@ except FileNotFoundError:
 while True:
     print("\n=== MENU PRINCIPAL ===")
     print("1. Créer un vaisseau")
-    print("2. Ajouter un membre à un vaisseau")
-    print("3. Afficher l'équipage d'un vaisseau")
+    print("2. Supprimer un vaisseau")
+    print("3. Ajouter un membre à un vaisseau")
     print("4. Supprimer un membre d'un vaisseau")
-    print("5. Vérifier la préparation d'un vaisseau")
-    print("6. Afficher les statistiques de la flotte")
-    print("7. Sauvegarder la flotte")
-    print("8. Afficher la flotte")
+    print("5. Afficher l'équipage d'un vaisseau")
+    print("6. Vérifier la préparation d'un vaisseau")
+    print("7. Afficher les statistiques de la flotte")
+    print("8. Sauvegarder la flotte")
+    print("9. Afficher la flotte")
     print("0. Quitter")
 
     choice = input("Votre choix : ")
@@ -100,25 +101,59 @@ while True:
             save_data(fleet) 
 
         case "2":
+            ship_name = input("Nom du vaisseau à supprimer : ")
+            if fleet.remove_spaceship(ship_name):
+                save_data(fleet)
+
+        case "3":
             ship_name = input("Nom du vaisseau : ")
             found = False
             for ship in fleet.spaceships:
                 if ship.name == ship_name:
+                    print("Type de membre à ajouter :")
+                    print("1. Opérateur")
+                    print("2. Mentaliste")
+                    choix = input("Votre choix : ")
+
                     first_name = input("Prénom : ")
                     last_name = input("Nom : ")
                     gender = input("Genre (homme/femme) : ")
                     age = int(input("Âge : "))
-                    role = input("Rôle (pilote/technicien/commandant) : ")
-                    crew_member = Operator(first_name, last_name, gender, age, role)
+
+                    if choix == "1":
+                        role = input("Rôle (pilote/technicien/commandant/armurier/entretien/marchand) : ")
+                        experience = int(input("Expérience (années) : "))
+                        crew_member = Operator(first_name, last_name, gender, age, role)
+                        crew_member.experience = experience
+                    elif choix == "2":
+                        mana = int(input("Mana : "))
+                        crew_member = Mentalist(first_name, last_name, gender, age, mana)
+                    else:
+                        print("Choix invalide, membre non ajouté.")
+                        break
+
                     ship.append_member(crew_member)
-                    print(f"{crew_member.first_name} {crew_member.last_name} a été ajouté à l'équipage du vaisseau {ship.name}")
-                    save_data(fleet) 
+                    print(f"{crew_member.first_name} {crew_member.last_name} à été ajouté à l'équipage du vaisseau {ship.name}")
+                    save_data(fleet)  # sauvegarde automatique
+                    found = True
+                    break
+            if not found:
+                print(f"Aucun vaisseau nommé {ship_name} n'a été trouvé.")
+    
+        case "4":
+            ship_name = input("Nom du vaisseau : ")
+            last_name = input("Nom du membre à supprimer : ")
+            found = False
+            for ship in fleet.spaceships:
+                if ship.name == ship_name:
+                    ship.remove_member(last_name)
+                    save_data(fleet)
                     found = True
                     break
             if not found:
                 print(f"Aucun vaisseau nommé {ship_name} n'a été trouvé.")
 
-        case "3":
+        case "5":
             ship_name = input("Nom du vaisseau : ")
             found = False
             for ship in fleet.spaceships:
@@ -129,19 +164,7 @@ while True:
             if not found:
                 print(f"Aucun vaisseau nommé {ship_name} n'a été trouvé.")
 
-        case "4":
-            ship_name = input("Nom du vaisseau : ")
-            last_name = input("Nom du membre à supprimer : ")
-            found = False
-            for ship in fleet.spaceships:
-                if ship.name == ship_name:
-                    ship.remove_member(last_name)
-                    found = True
-                    break
-            if not found:
-                print(f"Aucun vaisseau nommé {ship_name} n'a été trouvé.")
-
-        case "5":
+        case "6":
             ship_name = input("Nom du vaisseau : ")
             found = False
             for ship in fleet.spaceships:
@@ -155,13 +178,13 @@ while True:
             if not found:
                 print(f"Aucun vaisseau nommé {ship_name} n'a été trouvé.")
 
-        case "6":
+        case "7":
             fleet.statistics()
 
-        case "7":
+        case "8":
             save_data(fleet, "data.json")
 
-        case "8":
+        case "9":
             try:
                 fleet = load_data("data.json")
             except FileNotFoundError:

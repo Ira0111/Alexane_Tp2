@@ -29,6 +29,15 @@ class Fleet:
         else:
             self.spaceships.append(spaceship)
 
+    def remove_spaceship(self, ship_name):
+        for ship in self.__spaceships:
+            if ship.name == ship_name:
+                self.__spaceships.remove(ship)
+                print(f"Le vaisseau {ship_name} a été supprimé de la flotte {self.__name}")
+                return True
+        print(f"Aucun vaisseau nommé {ship_name} trouvé dans la flotte {self.__name}")
+        return False
+
     def statistics(self):
         total_members = 0
         role_count = {}
