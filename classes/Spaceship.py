@@ -84,7 +84,8 @@ class Spaceship:
         print("\n=== Équipage du vaisseau", self.name, "===")
         for member in self.crew:
             role = getattr(member, "role", "inconnu")
-            if member.gender == "femme":
-                print("-", member.first_name, member.last_name, "est une femme de", member.age, "ans, son role est :", role)
-            elif member.gender == "homme":
-                print("-", member.first_name, member.last_name, "est un homme de", member.age, "ans, son role est :", role)
+            genre_txt = "une femme" if member.gender == "femme" else "un homme"
+            if isinstance(member, Operator):
+                print(f"- {member.first_name} {member.last_name} est {genre_txt} de {member.age} ans, son rôle est : {member.role}")
+            elif isinstance(member, Mentalist):
+                print(f"- {member.first_name} {member.last_name} est {genre_txt} de {member.age} ans, c'est un Mentaliste avec {member.mana} mana")
