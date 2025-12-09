@@ -6,18 +6,26 @@ from classes.Fleet import *
 import json, ast
 
 def save_data(fleet, file_name="data.json"):
-    json_string = json.dumps(fleet, default=lambda o: o.__dict__, indent=4)
-    json_dict = ast.literal_eval(json_string)
     with open(file_name, "w", encoding="utf-8") as file:
-        json.dump(json_dict, file, indent=4)
-    print("✅ Flotte sauvegardée dans", file_name)
+        json.dump(fleet, file, default=custom_serializer, indent=4, ensure_ascii=False)
+    print("Flotte sauvegardée dans", file_name)
 
-def afficher_vaisseau(ship, fleet_name):
-    print(f"\n🚀 {ship.name} ({ship.shipType}, {ship.condition})")
-    # Construire une liste des noms de l'équipage
-    noms = [f"{m.first_name} {m.last_name}" for m in ship.crew]
-    print("   Équipage :", ", ".join(noms))
-    print(f"   ✅ Vaisseau {ship.name} ajouté dans la flotte {fleet_name}")
+
+def custom_serializer(obj):
+    if isinstance(obj, Spaceship):
+        return {
+            "_Spaceship__name": obj.name,
+            "_Spaceship__shipType": obj.shipType,
+            "_Spaceship__crew": obj.crew,
+            "_Spaceship__condition": obj.condition
+        }
+    if isinstance(obj, Fleet):
+        return {
+            "_Fleet__name": obj.name,
+            "_Fleet__spaceships": obj.spaceships
+        }
+    # Pour Operator et Mentalist, on laisse __dict__ car c'est déjà bien écrit
+    return obj.__dict__
 
 def load_data(file_name="data.json"):
     with open(file_name, "r", encoding="utf-8") as file:
@@ -48,8 +56,6 @@ def load_data(file_name="data.json"):
             ship.append_member(crew_member)
 
         fleet.append_spaceship(ship)
-
-        # --- Affichage formaté ---
         print(f"\n{ship.name} ({ship.shipType}, {ship.condition})")
         for member in ship.crew:
             role = getattr(member, "role", "inconnu")
@@ -60,7 +66,7 @@ def load_data(file_name="data.json"):
             else:
                 print(f"- {member.first_name} {member.last_name} ({member.gender}) de {member.age} ans, rôle : {role}")
 
-    print("\n✅ Flotte chargée depuis", file_name)
+    print("\nFlotte chargée depuis", file_name)
     return fleet
 
 try:
@@ -79,7 +85,7 @@ while True:
     print("5. Vérifier la préparation d'un vaisseau")
     print("6. Afficher les statistiques de la flotte")
     print("7. Sauvegarder la flotte")
-    print("8. Charger une flotte")
+    print("8. Afficher la flotte")
     print("0. Quitter")
 
     choice = input("Votre choix : ")
@@ -90,6 +96,8 @@ while True:
             ship_type = input("Type du vaisseau (marchand/guerre) : ")
             ship = Spaceship(ship_name, ship_type)
             fleet.append_spaceship(ship)
+            print(f"Le vaisseau {ship.name} a été ajouté dans la flotte {fleet.name}")
+            save_data(fleet) 
 
         case "2":
             ship_name = input("Nom du vaisseau : ")
@@ -103,6 +111,8 @@ while True:
                     role = input("Rôle (pilote/technicien/commandant) : ")
                     crew_member = Operator(first_name, last_name, gender, age, role)
                     ship.append_member(crew_member)
+                    print(f"{crew_member.first_name} {crew_member.last_name} a été ajouté à l'équipage du vaisseau {ship.name}")
+                    save_data(fleet) 
                     found = True
                     break
             if not found:

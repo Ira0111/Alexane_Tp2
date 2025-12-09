@@ -38,7 +38,7 @@
                     "_Operator__experience": 18
                 }
             ],
-            "_Spaceship__condition": "operationnel"
+            "_Spaceship__condition": "opérationnel"
         },
         {
             "_Spaceship__name": "Dark Nebula",
@@ -84,7 +84,7 @@
                     "_Mentalist__mana": 100
                 }
             ],
-            "_Spaceship__condition": "endommag\u00e9"
+            "_Spaceship__condition": "endommagé"
         },
         {
             "_Spaceship__name": "Fearless",
@@ -130,7 +130,7 @@
                     "_Mentalist__mana": 100
                 }
             ],
-            "_Spaceship__condition": "operationnel"
+            "_Spaceship__condition": "opérationnel"
         },
         {
             "_Spaceship__name": "Unimara",
@@ -176,7 +176,7 @@
                     "_Operator__experience": 19
                 }
             ],
-            "_Spaceship__condition": "operationnel"
+            "_Spaceship__condition": "opérationnel"
         },
         {
             "_Spaceship__name": "Weinis",
@@ -215,7 +215,7 @@
                     "_Operator__experience": 15
                 }
             ],
-            "_Spaceship__condition": "endommag\u00e9"
+            "_Spaceship__condition": "endommagé"
         }
     ]
 }

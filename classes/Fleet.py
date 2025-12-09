@@ -28,7 +28,6 @@ class Fleet:
             print("La Flotte est complette : imposible d'ajouter", spaceship.name)
         else:
             self.spaceships.append(spaceship)
-            print("Le vaisseau", spaceship.name, "a été ajouter dans la flotte", self.name)
 
     def statistics(self):
         total_members = 0

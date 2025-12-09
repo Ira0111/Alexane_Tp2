@@ -47,7 +47,6 @@ class Spaceship:
             print("L'équipage est complet : imposible d'ajouter", member.first_name, member.last_name)
         else:
             self.crew.append(member)
-            print(member.first_name, member.last_name, "a été ajouter à l'équipage du vaisseau", self.name)
 
     def check_preparation(self):
         has_pilot = False
