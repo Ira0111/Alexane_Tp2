@@ -16,8 +16,8 @@ def custom_serializer(obj):
         return {
             "_Spaceship__name": obj.name,
             "_Spaceship__shipType": obj.shipType,
+            "_Spaceship__condition": obj.condition,
             "_Spaceship__crew": obj.crew,
-            "_Spaceship__condition": obj.condition
         }
     if isinstance(obj, Fleet):
         return {
@@ -56,17 +56,7 @@ def load_data(file_name="data.json"):
             ship.append_member(crew_member)
 
         fleet.append_spaceship(ship)
-        print(f"\n{ship.name} ({ship.shipType}, {ship.condition})")
-        for member in ship.crew:
-            role = getattr(member, "role", "inconnu")
-            if member.gender == "femme":
-                print(f"- {member.first_name} {member.last_name} est une femme de {member.age} ans, son rôle est : {role}")
-            elif member.gender == "homme":
-                print(f"- {member.first_name} {member.last_name} est un homme de {member.age} ans, son rôle est : {role}")
-            else:
-                print(f"- {member.first_name} {member.last_name} ({member.gender}) de {member.age} ans, rôle : {role}")
-
-    print("\nFlotte chargée depuis", file_name)
+    print("\nFlotte chargée")
     return fleet
 
 try:
@@ -119,22 +109,28 @@ while True:
                     last_name = input("Nom : ")
                     gender = input("Genre (homme/femme) : ")
                     age = int(input("Âge : "))
+                    match choix :
+                        case "1" :
+                            role = input("Rôle (pilote/technicien/commandant/armurier/entretien/marchand) : ")
+                            experience = int(input("Expérience (années) : "))
+                            crew_member = Operator(first_name, last_name, gender, age, role)
+                            crew_member.experience = experience
+                        case "2":
+                            mana = int(input("Mana (max 100) : "))
+                            if mana > 100:
+                                mana = 100 
+                                print("Le mana ne peut pas dépasser 100, valeur fixée à 100.")
+                            elif mana < 0:
+                                mana = 0 
+                                print("Le mana ne peut pas être négatif, valeur fixée à 0.")
 
-                    if choix == "1":
-                        role = input("Rôle (pilote/technicien/commandant/armurier/entretien/marchand) : ")
-                        experience = int(input("Expérience (années) : "))
-                        crew_member = Operator(first_name, last_name, gender, age, role)
-                        crew_member.experience = experience
-                    elif choix == "2":
-                        mana = int(input("Mana : "))
-                        crew_member = Mentalist(first_name, last_name, gender, age, mana)
-                    else:
-                        print("Choix invalide, membre non ajouté.")
-                        break
-
+                            crew_member = Mentalist(first_name, last_name, gender, age, mana)
+                        case _:
+                            print("Choix invalide, membre non ajouté.")
+                            break
                     ship.append_member(crew_member)
                     print(f"{crew_member.first_name} {crew_member.last_name} à été ajouté à l'équipage du vaisseau {ship.name}")
-                    save_data(fleet)  # sauvegarde automatique
+                    save_data(fleet)
                     found = True
                     break
             if not found:
@@ -187,6 +183,8 @@ while True:
         case "9":
             try:
                 fleet = load_data("data.json")
+                for ship in fleet.spaceships:
+                    ship.display_crew()
             except FileNotFoundError:
                 print("Le fichier data.json est introuvable.")
 

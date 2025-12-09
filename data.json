@@ -4,6 +4,7 @@
         {
             "_Spaceship__name": "Bayta",
             "_Spaceship__shipType": "marchand",
+            "_Spaceship__condition": "opérationnel",
             "_Spaceship__crew": [
                 {
                     "_Member__first_name": "Bel",
@@ -37,12 +38,12 @@
                     "_Operator__role": "entretien",
                     "_Operator__experience": 18
                 }
-            ],
-            "_Spaceship__condition": "opérationnel"
+            ]
         },
         {
             "_Spaceship__name": "Dark Nebula",
             "_Spaceship__shipType": "guerre",
+            "_Spaceship__condition": "endommagé",
             "_Spaceship__crew": [
                 {
                     "_Member__first_name": "Jagger",
@@ -83,12 +84,12 @@
                     "_Member__age": 48,
                     "_Mentalist__mana": 100
                 }
-            ],
-            "_Spaceship__condition": "endommagé"
+            ]
         },
         {
             "_Spaceship__name": "Fearless",
             "_Spaceship__shipType": "guerre",
+            "_Spaceship__condition": "opérationnel",
             "_Spaceship__crew": [
                 {
                     "_Member__first_name": "Hober",
@@ -129,12 +130,12 @@
                     "_Member__age": 52,
                     "_Mentalist__mana": 100
                 }
-            ],
-            "_Spaceship__condition": "opérationnel"
+            ]
         },
         {
             "_Spaceship__name": "Unimara",
             "_Spaceship__shipType": "marchand",
+            "_Spaceship__condition": "opérationnel",
             "_Spaceship__crew": [
                 {
                     "_Member__first_name": "Lathan",
@@ -175,12 +176,12 @@
                     "_Operator__role": "pilote",
                     "_Operator__experience": 19
                 }
-            ],
-            "_Spaceship__condition": "opérationnel"
+            ]
         },
         {
             "_Spaceship__name": "Weinis",
             "_Spaceship__shipType": "marchand",
+            "_Spaceship__condition": "endommagé",
             "_Spaceship__crew": [
                 {
                     "_Member__first_name": "Limmar",
@@ -214,8 +215,7 @@
                     "_Operator__role": "entretien",
                     "_Operator__experience": 15
                 }
-            ],
-            "_Spaceship__condition": "endommagé"
+            ]
         }
     ]
 }
