@@ -46,10 +46,21 @@ def load_data(file_name="data.json"):
                 crew_member = Mentalist(first_name, last_name, gender, age, mana)
 
             ship.append_member(crew_member)
-                        
+
         fleet.append_spaceship(ship)
 
-    print("Flotte chargée depuis", file_name)
+        # --- Affichage formaté ---
+        print(f"\n{ship.name} ({ship.shipType}, {ship.condition})")
+        for member in ship.crew:
+            role = getattr(member, "role", "inconnu")
+            if member.gender == "femme":
+                print(f"- {member.first_name} {member.last_name} est une femme de {member.age} ans, son rôle est : {role}")
+            elif member.gender == "homme":
+                print(f"- {member.first_name} {member.last_name} est un homme de {member.age} ans, son rôle est : {role}")
+            else:
+                print(f"- {member.first_name} {member.last_name} ({member.gender}) de {member.age} ans, rôle : {role}")
+
+    print("\n✅ Flotte chargée depuis", file_name)
     return fleet
 
 try:
