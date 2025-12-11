@@ -186,7 +186,7 @@ while True:
                 for ship in fleet.spaceships:
                     ship.display_crew()
             except FileNotFoundError:
-                print("Le fichier data.json est introuvable.")
+                print("Le fichier est introuvable.")
 
         case "0":
             print("Au revoir 👋")
