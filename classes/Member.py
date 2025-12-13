@@ -42,3 +42,14 @@ class Member:
             print("Je suis", self.first_name, self.last_name, "je suis une femme de", self.age, "ans.")
         elif self.gender == "homme":
             print("Je suis", self.first_name, self.last_name, "je suis un homme de", self.age, "ans.")
+
+    def update_member(self, first_name=None, last_name=None, gender=None, age=None):
+        if first_name is not None:
+            self.first_name = first_name
+        if last_name is not None:
+            self.last_name = last_name
+        if gender is not None:
+            self.gender = gender
+        if age is not None:
+            self.age = age
+        print(f"Le membre {self.first_name} {self.last_name} est mis à jour.")

@@ -41,3 +41,11 @@ class Operator(Member):
 
     def gain_experience(self):
         self.experience += 1
+
+    def update_operator(self, first_name=None, last_name=None, gender=None, age=None, role=None, experience=None):
+        self.update_member(first_name, last_name, gender, age)
+        if role is not None:
+            self.role = role
+        if experience is not None:
+            self.experience = experience
+        print(f"L'Opérateur {self.first_name} {self.last_name} est mis à jour.")

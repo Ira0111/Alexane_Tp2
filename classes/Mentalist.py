@@ -26,3 +26,9 @@ class Mentalist(Member):
         self.mana = min(100, self.__mana + 50)
         print(self.first_name, self.last_name, "recharge son mana à", self.mana)
 
+    def update_mentalist(self, first_name=None, last_name=None, gender=None, age=None, mana=None):
+        self.update_member(first_name, last_name, gender, age)
+        if mana is not None:
+            self.mana = mana
+        print(f"Le mentaliste {self.first_name} {self.last_name} est mis à jour.")
+

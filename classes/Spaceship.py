@@ -89,3 +89,12 @@ class Spaceship:
                 print(f"- {member.first_name} {member.last_name} est {genre_txt} de {member.age} ans, son rôle est : {member.role}")
             elif isinstance(member, Mentalist):
                 print(f"- {member.first_name} {member.last_name} est {genre_txt} de {member.age} ans, c'est un Mentaliste avec {member.mana} mana")
+
+    def update_spaceship(self, name=None, shipType=None, condition=None):
+        if name is not None:
+            self.name = name
+        if shipType is not None:
+            self.shipType = shipType
+        if condition is not None:
+            self.condition = condition
+        print(f"Le vaisseau {self.name} est mis à jour.")

@@ -67,3 +67,8 @@ class Fleet:
             print("Niveau moyen d'expérience des opérateurs :", moyenne)
         else:
             print("Aucun opérateur dans la flotte.")
+
+    def update_fleet(self, name=None):
+        if name is not None:
+            self.name = name
+        print(f"La Flotte est renommée en {self.name}.")

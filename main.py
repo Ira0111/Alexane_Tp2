@@ -77,6 +77,9 @@ while True:
     print("7. Afficher les statistiques de la flotte")
     print("8. Sauvegarder la flotte")
     print("9. Afficher la flotte")
+    print("10. Modifier un vaisseau")
+    print("11. Modifier la flotte")
+    print("12. Modifier un membre d'un vaisseau")
     print("0. Quitter")
 
     choice = input("Votre choix : ")
@@ -187,6 +190,106 @@ while True:
                     ship.display_crew()
             except FileNotFoundError:
                 print("Le fichier est introuvable.")
+
+        case "10":
+            ship_name = input("Nom du vaisseau à modifier : ")
+            found = False
+            for ship in fleet.spaceships:
+                if ship.name == ship_name:
+                    print("Que voulez-vous modifier ?")
+                    print("1. Nom")
+                    print("2. Type")
+                    print("3. Condition")
+                    sub_choice = input("Votre choix : ")
+                    match sub_choice:
+                        case "1":
+                            new_name = input("Nouveau nom : ")
+                            ship.update_spaceship(name=new_name)
+                        case "2":
+                            new_type = input("Nouveau type (marchand/guerre) : ")
+                            ship.update_spaceship(shipType=new_type)
+                        case "3":
+                            new_condition = input("Nouvelle condition : ")
+                            ship.update_spaceship(condition=new_condition)
+                        case _:
+                            print("Choix invalide.")
+                    save_data(fleet)
+                    found = True
+                    break
+            if not found:
+                print(f"Aucun vaisseau nommé {ship_name} n'a été trouvé.")
+
+        case "11":
+            new_fleet_name = input("Nouveau nom de la flotte : ")
+            fleet.update_fleet(name=new_fleet_name)
+            save_data(fleet)
+
+        case "12":
+            ship_name = input("Nom du vaisseau : ")
+            last_name = input("Nom du membre à modifier : ")
+            found = False
+            for ship in fleet.spaceships:
+                if ship.name == ship_name:
+                    for member in ship.crew:
+                        if member.last_name == last_name:
+                            print("Que voulez-vous modifier ?")
+                            print("1. Prénom")
+                            print("2. Nom")
+                            print("3. Genre")
+                            print("4. Âge")
+                            if isinstance(member, Operator):
+                                print("5. Rôle")
+                                print("6. Expérience")
+                                sub_choice = input("Votre choix : ")
+                                match sub_choice:
+                                    case "1":
+                                        new_first = input("Nouveau prénom : ")
+                                        member.update_operator(first_name=new_first)
+                                    case "2":
+                                        new_last = input("Nouveau nom : ")
+                                        member.update_operator(last_name=new_last)
+                                    case "3":
+                                        new_gender = input("Nouveau genre (homme/femme) : ")
+                                        member.update_operator(gender=new_gender)
+                                    case "4":
+                                        new_age = int(input("Nouvel âge : "))
+                                        member.update_operator(age=new_age)
+                                    case "5":
+                                        new_role = input("Nouveau rôle (pilote/technicien/commandant/armurier/entretien/marchand) : ")
+                                        member.update_operator(role=new_role)
+                                    case "6":
+                                        new_exp = int(input("Nouvelle expérience : "))
+                                        member.update_operator(experience=new_exp)
+                                    case _:
+                                        print("Choix invalide.")
+                            elif isinstance(member, Mentalist):
+                                print("5. Mana")
+                                sub_choice = input("Votre choix : ")
+                                match sub_choice:
+                                    case "1":
+                                        new_first = input("Nouveau prénom : ")
+                                        member.update_mentalist(first_name=new_first)
+                                    case "2":
+                                        new_last = input("Nouveau nom : ")
+                                        member.update_mentalist(last_name=new_last)
+                                    case "3":
+                                        new_gender = input("Nouveau genre (homme/femme) : ")
+                                        member.update_mentalist(gender=new_gender)
+                                    case "4":
+                                        new_age = int(input("Nouvel âge : "))
+                                        member.update_mentalist(age=new_age)
+                                    case "5":
+                                        new_mana = int(input("Nouveau mana (0-100) : "))
+                                        member.update_mentalist(mana=new_mana)
+                                    case _:
+                                        print("Choix invalide.")
+                            save_data(fleet)
+                            found = True
+                            break
+                    if found:
+                        break
+            if not found:
+                print(f"Aucun membre nommé {last_name} n'a été trouvé dans le vaisseau {ship_name}.")
 
         case "0":
             print("Au revoir 👋")
