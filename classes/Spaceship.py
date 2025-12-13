@@ -5,7 +5,7 @@ from classes.Mentalist import*
 class Spaceship:
     def __init__(self, name, shipType, condition="opérationnel"):
         self.__name = name
-        self.__shipType = shipType
+        self.__shipType = shipType.lower()
         self.__crew = []
         self.__condition = condition
 
@@ -55,9 +55,9 @@ class Spaceship:
 
         for member in self.crew:
             role = getattr(member, "role", None)
-            if role == "pilot":
+            if role and role.lower() == "pilot":
                 has_pilot = True
-            elif role == "technicien":
+            elif role and role.lower() == "technicien":
                 has_technician = True
             if isinstance(member, Mentalist) and getattr(member, "mana", 0) >= 50:
                 has_powerful_mentalist = True
@@ -72,7 +72,7 @@ class Spaceship:
     def remove_member(self, last_name : str,):
         found = False
         for member in self.crew:
-            if member.last_name == last_name:
+            if member.last_name.lower() == last_name.lower():
                 self.crew.remove(member)
                 print(member.first_name, member.last_name, "a été retiré de l'équipage du vaisseau", self.name)
                 found = True

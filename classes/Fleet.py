@@ -31,7 +31,7 @@ class Fleet:
 
     def remove_spaceship(self, ship_name):
         for ship in self.__spaceships:
-            if ship.name == ship_name:
+            if ship.name.lower() == ship_name.lower():
                 self.__spaceships.remove(ship)
                 print(f"Le vaisseau {ship_name} a été supprimé de la flotte {self.__name}")
                 return True

@@ -3,7 +3,7 @@ from classes.Member import*
 class Operator(Member):
     def __init__(self, first_name, last_name, gender, age, role, experience = 0):
         super().__init__(first_name, last_name, gender, age)
-        self.__role = role
+        self.__role = role.lower()
         self.__experience = experience
 
     @property
