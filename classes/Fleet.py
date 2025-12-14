@@ -51,8 +51,10 @@ class Fleet:
                     operator_count += 1
                     total_experience += member.experience
                     role = member.role
+                elif isinstance(member, Mentalist):
+                    role = "mentaliste"
                 else:
-                    role = getattr(member, "role", "inconnu")
+                    role = "inconnu"
 
                 role_count[role] = role_count.get(role, 0) + 1
 

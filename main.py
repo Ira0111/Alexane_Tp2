@@ -103,11 +103,26 @@ while True:
 
                             first_name = input("Prénom : ")
                             last_name = input("Nom : ")
-                            gender = input("Genre (homme/femme) : ")
-                            age = int(input("Âge : "))
+                            gender = input("Genre (homme/femme) : ").strip().lower()
+                            while gender not in ["homme", "femme"]:
+                                print("Genre invalide. Veuillez entrer 'homme' ou 'femme'.")
+                                gender = input("Genre (homme/femme) : ").strip().lower()
+                            while True:
+                                try:
+                                    age = int(input("Âge : "))
+                                    if 20 <= age <= 60:
+                                        break
+                                    else:
+                                        print("Âge invalide. L'âge doit être entre 20 et 60 ans.")
+                                except ValueError:
+                                    print("Veuillez entrer un nombre entier pour l'âge.")
                             match choix :
                                 case "1" :
-                                    role = input("Rôle (pilote/technicien/commandant/armurier/entretien/marchand) : ")
+                                    role = input("Rôle (pilote/technicien/commandant/armurier/entretien/marchand) : ").strip().lower()
+                                    valid_roles = ["pilote", "technicien", "commandant", "armurier", "entretien", "marchand"]
+                                    while role not in valid_roles:
+                                        print("Rôle invalide. Veuillez choisir parmi : pilote, technicien, commandant, armurier, entretien, marchand")
+                                        role = input("Rôle (pilote/technicien/commandant/armurier/entretien/marchand) : ").strip().lower()
                                     experience = int(input("Expérience (années) : "))
                                     crew_member = Operator(first_name, last_name, gender, age, role)
                                     crew_member.experience = experience
@@ -222,13 +237,28 @@ while True:
                                                 new_last = input("Nouveau nom : ")
                                                 member.update_operator(last_name=new_last)
                                             case "3":
-                                                new_gender = input("Nouveau genre (homme/femme) : ")
+                                                new_gender = input("Nouveau genre (homme/femme) : ").strip().lower()
+                                                while new_gender not in ["homme", "femme"]:
+                                                    print("Genre invalide. Veuillez entrer 'homme' ou 'femme'.")
+                                                    new_gender = input("Nouveau genre (homme/femme) : ").strip().lower()
                                                 member.update_operator(gender=new_gender)
                                             case "4":
-                                                new_age = int(input("Nouvel âge : "))
+                                                while True:
+                                                    try:
+                                                        new_age = int(input("Nouvel âge : "))
+                                                        if 20 <= new_age <= 60:
+                                                            break
+                                                        else:
+                                                            print("Âge invalide. L'âge doit être entre 20 et 60 ans.")
+                                                    except ValueError:
+                                                        print("Veuillez entrer un nombre entier pour l'âge.")
                                                 member.update_operator(age=new_age)
                                             case "5":
-                                                new_role = input("Nouveau rôle (pilote/technicien/commandant/armurier/entretien/marchand) : ")
+                                                new_role = input("Nouveau rôle (pilote/technicien/commandant/armurier/entretien/marchand) : ").strip().lower()
+                                                valid_roles = ["pilote", "technicien", "commandant", "armurier", "entretien", "marchand"]
+                                                while new_role not in valid_roles:
+                                                    print("Rôle invalide. Veuillez choisir parmi : pilote, technicien, commandant, armurier, entretien, marchand")
+                                                    new_role = input("Nouveau rôle (pilote/technicien/commandant/armurier/entretien/marchand) : ").strip().lower()
                                                 member.update_operator(role=new_role)
                                             case "6":
                                                 new_exp = int(input("Nouvelle expérience : "))
@@ -246,10 +276,21 @@ while True:
                                                 new_last = input("Nouveau nom : ")
                                                 member.update_mentalist(last_name=new_last)
                                             case "3":
-                                                new_gender = input("Nouveau genre (homme/femme) : ")
+                                                new_gender = input("Nouveau genre (homme/femme) : ").strip().lower()
+                                                while new_gender not in ["homme", "femme"]:
+                                                    print("Genre invalide. Veuillez entrer 'homme' ou 'femme'.")
+                                                    new_gender = input("Nouveau genre (homme/femme) : ").strip().lower()
                                                 member.update_mentalist(gender=new_gender)
                                             case "4":
-                                                new_age = int(input("Nouvel âge : "))
+                                                while True:
+                                                    try:
+                                                        new_age = int(input("Nouvel âge : "))
+                                                        if 20 <= new_age <= 60:
+                                                            break
+                                                        else:
+                                                            print("Âge invalide. L'âge doit être entre 20 et 60 ans.")
+                                                    except ValueError:
+                                                        print("Veuillez entrer un nombre entier pour l'âge.")
                                                 member.update_mentalist(age=new_age)
                                             case "5":
                                                 new_mana = int(input("Nouveau mana (0-100) : "))
