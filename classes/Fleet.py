@@ -43,7 +43,19 @@ class Fleet:
         role_count = {}
         total_experience = 0
         operator_count = 0
+        num_merchant = 0
+        num_guerre = 0
+        num_operational = 0
+        num_damaged = 0
         for ship in self.spaceships:
+            if ship.shipType.lower() == "marchand":
+                num_merchant += 1
+            if ship.shipType.lower() == "guerre":
+                num_guerre += 1    
+            if ship.condition.lower() == "bon état":
+                num_operational += 1
+            else:
+                num_damaged += 1
             for member in ship.crew:
                 total_members += 1
                 role = None
@@ -55,21 +67,23 @@ class Fleet:
                     role = "mentaliste"
                 else:
                     role = "inconnu"
-
                 role_count[role] = role_count.get(role, 0) + 1
-
-        print("===Statistiques de la flotte===", self.name)
-        print("Nombre total de membres :", total_members)
+        print("\n\n===Statistiques de la flotte===", self.name)
+        print("\nVaisseaux :", len(self.spaceships))
+        print("Marchands :", num_merchant)
+        print("Guerre :", num_guerre)
+        print("Opérationnels :", num_operational)
+        print("Endommagés :", num_damaged)
+        print("\nNombre total de membres :", total_members)
         print("Répartition des rôles :")
         for role, count in role_count.items():
             print("-", role, ":", count)
-
         if operator_count > 0:
             moyenne = round(total_experience / operator_count, 2)
             print("Niveau moyen d'expérience des opérateurs :", moyenne)
         else:
             print("Aucun opérateur dans la flotte.")
-
+            
     def update_fleet(self, name=None):
         if name is not None:
             self.name = name
