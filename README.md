@@ -114,14 +114,14 @@ Suivez les invites pour naviguer dans les menus. Les données sont automatiqueme
 - **Commandant** : Fait des vérifications
 - **Armurier** : Fabrique une arme
 - **Marchand** : Surveille son stock
-- **Entretien** : Répare une partie du vaisseau
+- **Entretien** : Effectue la maintenance du vaisseau
 
 ## Préparation d'un Vaisseau
 
 Un vaisseau est considéré comme prêt s'il a :
 - Au moins un pilote
 - Au moins un technicien
-- Au moins un mentaliste avec un mana => 50
+- Au moins un mentaliste avec un mana ≥ 50
 
 ## Sauvegarde
 

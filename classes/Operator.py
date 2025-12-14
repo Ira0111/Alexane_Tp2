@@ -35,7 +35,7 @@ class Operator(Member):
             case "marchand":
                 print(self.first_name, self.last_name, "surveil son stock")
             case "entretien":
-                print(self.first_name, self.last_name, "réparer un partie du vaisseau")
+                print(self.first_name, self.last_name, "effectue la maintenance du vaisseau")
             case _:
                 print(self.first_name, self.last_name, "rôle inconnu")   
 
