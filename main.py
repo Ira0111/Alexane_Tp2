@@ -273,6 +273,7 @@ while True:
             print("3. Afficher les statistiques de la flotte")
             print("4. Sauvegarder la flotte")
             print("5. Afficher la flotte")
+            print("6. Faire agir un membre")
             sub_choice = input("Votre choix : ")
             match sub_choice:
                 case "1":
@@ -309,6 +310,30 @@ while True:
                             ship.display_crew()
                     except FileNotFoundError:
                         print("Le fichier est introuvable.")
+                case "6":
+                    ship_name = input("Nom du vaisseau : ").strip().lower()
+                    found = False
+                    for ship in fleet.spaceships:
+                        if ship.name.lower() == ship_name:
+                            member_name = input("Nom du membre : ").strip().lower()
+                            for member in ship.crew:
+                                if member.last_name.lower() == member_name:
+                                    if isinstance(member, Operator):
+                                        member.act()
+                                    elif isinstance(member, Mentalist):
+                                        operator_name = input("Nom de l'opérateur à influencer : ").strip().lower()
+                                        for op in ship.crew:
+                                            if isinstance(op, Operator) and op.last_name.lower() == operator_name:
+                                                member.act(op)
+                                                break
+                                        else:
+                                            print("Opérateur non trouvé.")
+                                    found = True
+                                    break
+                            if found:
+                                break
+                    if not found:
+                        print(f"Aucun membre nommé {member_name} n'a été trouvé dans le vaisseau {ship_name}.")
                 case _:
                     print("Choix invalide.")
 

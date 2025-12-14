@@ -30,7 +30,7 @@ class Operator(Member):
                 print(self.first_name, self.last_name, "nettoie le vaisseau")
             case "armurier":
                 print(self.first_name, self.last_name, "fabrique une arme")
-            case "pilot":
+            case "pilote" | "pilot":
                 print(self.first_name, self.last_name, "s'entrainne sur un simulateur")
             case "marchand":
                 print(self.first_name, self.last_name, "surveil son stock")
