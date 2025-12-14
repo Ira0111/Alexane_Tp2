@@ -112,19 +112,18 @@ while True:
     print("3. Modifier")
     print("4. Afficher")
     print("5. Autres actions")
-    print("0. Quitter")
-
+    print("0. Quitter\n")
     choice = input("Votre choix : ")
 
     match choice:
         case "1":  # Ajouter
             print("\n=== AJOUTER ===")
             print("1. Créer un vaisseau")
-            print("2. Ajouter un membre à un vaisseau")
+            print("2. Ajouter un membre à un vaisseau\n")
             sub_choice = input("Votre choix : ")
             match sub_choice:
                 case "1":
-                    ship_name = input("Nom du vaisseau : ")
+                    ship_name = input("\nNom du vaisseau : ")
                     ship_type = input("Type du vaisseau (marchand/guerre) : ").strip().lower()
                     valid_types = ["marchand", "guerre"]
                     while ship_type not in valid_types:
@@ -136,16 +135,16 @@ while True:
                     save_data(fleet)
                     trigger_random_event(fleet)
                 case "2":
-                    ship_name = input("Nom du vaisseau : ").strip().lower()
+                    ship_name = input("\nNom du vaisseau : ").strip().lower()
                     found = False
                     for ship in fleet.spaceships:
                         if ship.name.lower() == ship_name:
                             print("Type de membre à ajouter :")
                             print("1. Opérateur")
-                            print("2. Mentaliste")
+                            print("2. Mentaliste\n")
                             choix = input("Votre choix : ")
 
-                            first_name = input("Prénom : ")
+                            first_name = input("\nPrénom : ")
                             last_name = input("Nom : ")
                             gender = input("Genre (homme/femme) : ").strip().lower()
                             while gender not in ["homme", "femme"]:
@@ -197,16 +196,16 @@ while True:
         case "2":  # Supprimer
             print("\n=== SUPPRIMER ===")
             print("1. Supprimer un vaisseau")
-            print("2. Supprimer un membre d'un vaisseau")
+            print("2. Supprimer un membre d'un vaisseau\n")
             sub_choice = input("Votre choix : ")
             match sub_choice:
                 case "1":
-                    ship_name = input("Nom du vaisseau à supprimer : ").strip().lower()
+                    ship_name = input("\nNom du vaisseau à supprimer : ").strip().lower()
                     if fleet.remove_spaceship(ship_name):
                         save_data(fleet)
                         trigger_random_event(fleet)
                 case "2":
-                    ship_name = input("Nom du vaisseau : ").strip().lower()
+                    ship_name = input("\nNom du vaisseau : ").strip().lower()
                     last_name = input("Nom du membre à supprimer : ").strip().lower()
                     found = False
                     for ship in fleet.spaceships:
@@ -225,42 +224,42 @@ while True:
             print("\n=== MODIFIER ===")
             print("1. Modifier un vaisseau")
             print("2. Modifier la flotte")
-            print("3. Modifier un membre d'un vaisseau")
+            print("3. Modifier un membre d'un vaisseau\n")
             sub_choice = input("Votre choix : ")
             match sub_choice:
                 case "1":
-                    ship_name = input("Nom du vaisseau à modifier : ").strip().lower()
+                    ship_name = input("\nNom du vaisseau à modifier : ").strip().lower()
                     found = False
                     for ship in fleet.spaceships:
                         if ship.name.lower() == ship_name:
                             print("Que voulez-vous modifier ?")
                             print("1. Nom")
                             print("2. Type")
-                            print("3. Condition")
+                            print("3. Condition\n")
                             sub_sub_choice = input("Votre choix : ")
                             match sub_sub_choice:
                                 case "1":
-                                    new_name = input("Nouveau nom : ")
+                                    new_name = input("\nNouveau nom : ")
                                     ship.update_spaceship(name=new_name)
                                 case "2":
-                                    new_type = input("Nouveau type (marchand/guerre) : ")
+                                    new_type = input("\nNouveau type (marchand/guerre) : ")
                                     ship.update_spaceship(shipType=new_type)
                                 case "3":
-                                    new_condition = input("Nouvelle condition : ")
+                                    new_condition = input("\nNouvelle condition : ")
                                     ship.update_spaceship(condition=new_condition)
                                 case _:
-                                    print("Choix invalide.")
+                                    print("\nChoix invalide.")
                             save_data(fleet)
                             found = True
                             break
                     if not found:
                         print(f"Aucun vaisseau nommé {ship_name} n'a été trouvé.")
                 case "2":
-                    new_fleet_name = input("Nouveau nom de la flotte : ")
+                    new_fleet_name = input("\nNouveau nom de la flotte : ")
                     fleet.update_fleet(name=new_fleet_name)
                     save_data(fleet)
                 case "3":
-                    ship_name = input("Nom du vaisseau : ").strip().lower()
+                    ship_name = input("\nNom du vaisseau : ").strip().lower()
                     last_name = input("Nom du membre à modifier : ").strip().lower()
                     found = False
                     for ship in fleet.spaceships:
@@ -274,17 +273,17 @@ while True:
                                     print("4. Âge")
                                     if isinstance(member, Operator):
                                         print("5. Rôle")
-                                        print("6. Expérience")
+                                        print("6. Expérience\n")
                                         sub_sub_choice = input("Votre choix : ")
                                         match sub_sub_choice:
                                             case "1":
-                                                new_first = input("Nouveau prénom : ")
+                                                new_first = input("\nNouveau prénom : ")
                                                 member.update_operator(first_name=new_first)
                                             case "2":
-                                                new_last = input("Nouveau nom : ")
+                                                new_last = input("\nNouveau nom : ")
                                                 member.update_operator(last_name=new_last)
                                             case "3":
-                                                new_gender = input("Nouveau genre (homme/femme) : ").strip().lower()
+                                                new_gender = input("\nNouveau genre (homme/femme) : ").strip().lower()
                                                 while new_gender not in ["homme", "femme"]:
                                                     print("Genre invalide. Veuillez entrer 'homme' ou 'femme'.")
                                                     new_gender = input("Nouveau genre (homme/femme) : ").strip().lower()
@@ -292,7 +291,7 @@ while True:
                                             case "4":
                                                 while True:
                                                     try:
-                                                        new_age = int(input("Nouvel âge : "))
+                                                        new_age = int(input("\nNouvel âge : "))
                                                         if 20 <= new_age <= 60:
                                                             break
                                                         else:
@@ -301,29 +300,29 @@ while True:
                                                         print("Veuillez entrer un nombre entier pour l'âge.")
                                                 member.update_operator(age=new_age)
                                             case "5":
-                                                new_role = input("Nouveau rôle (pilote/technicien/commandant/armurier/entretien/marchand) : ").strip().lower()
+                                                new_role = input("\nNouveau rôle (pilote/technicien/commandant/armurier/entretien/marchand) : ").strip().lower()
                                                 valid_roles = ["pilote", "technicien", "commandant", "armurier", "entretien", "marchand"]
                                                 while new_role not in valid_roles:
                                                     print("Rôle invalide. Veuillez choisir parmi : pilote, technicien, commandant, armurier, entretien, marchand")
                                                     new_role = input("Nouveau rôle (pilote/technicien/commandant/armurier/entretien/marchand) : ").strip().lower()
                                                 member.update_operator(role=new_role)
                                             case "6":
-                                                new_exp = int(input("Nouvelle expérience : "))
+                                                new_exp = int(input("\nNouvelle expérience : "))
                                                 member.update_operator(experience=new_exp)
                                             case _:
-                                                print("Choix invalide.")
+                                                print("\nChoix invalide.")
                                     elif isinstance(member, Mentalist):
-                                        print("5. Mana")
+                                        print("5. Mana\n")
                                         sub_sub_choice = input("Votre choix : ")
                                         match sub_sub_choice:
                                             case "1":
-                                                new_first = input("Nouveau prénom : ")
+                                                new_first = input("\nNouveau prénom : ")
                                                 member.update_mentalist(first_name=new_first)
                                             case "2":
-                                                new_last = input("Nouveau nom : ")
+                                                new_last = input("\nNouveau nom : ")
                                                 member.update_mentalist(last_name=new_last)
                                             case "3":
-                                                new_gender = input("Nouveau genre (homme/femme) : ").strip().lower()
+                                                new_gender = input("\nNouveau genre (homme/femme) : ").strip().lower()
                                                 while new_gender not in ["homme", "femme"]:
                                                     print("Genre invalide. Veuillez entrer 'homme' ou 'femme'.")
                                                     new_gender = input("Nouveau genre (homme/femme) : ").strip().lower()
@@ -331,7 +330,7 @@ while True:
                                             case "4":
                                                 while True:
                                                     try:
-                                                        new_age = int(input("Nouvel âge : "))
+                                                        new_age = int(input("\nNouvel âge : "))
                                                         if 20 <= new_age <= 60:
                                                             break
                                                         else:
@@ -340,10 +339,10 @@ while True:
                                                         print("Veuillez entrer un nombre entier pour l'âge.")
                                                 member.update_mentalist(age=new_age)
                                             case "5":
-                                                new_mana = int(input("Nouveau mana (0-100) : "))
+                                                new_mana = int(input("\nNouveau mana (0-100) : "))
                                                 member.update_mentalist(mana=new_mana)
                                             case _:
-                                                print("Choix invalide.")
+                                                print("\nChoix invalide.")
                                     save_data(fleet)
                                     found = True
                                     break
@@ -352,17 +351,17 @@ while True:
                     if not found:
                         print(f"Aucun membre nommé {last_name} n'a été trouvé dans le vaisseau {ship_name}.")
                 case _:
-                    print("Choix invalide.")
+                    print("\nChoix invalide.")
 
         case "4":  # Afficher
             print("\n=== AFFICHER ===")
             print("1. Afficher l'équipage d'un vaisseau")
             print("2. Afficher les statistiques de la flotte")
-            print("3. Afficher la flotte")
+            print("3. Afficher la flotte\n")
             sub_choice = input("Votre choix : ")
             match sub_choice:
                 case "1":
-                    ship_name = input("Nom du vaisseau : ").strip().lower()
+                    ship_name = input("\nNom du vaisseau : ").strip().lower()
                     found = False
                     for ship in fleet.spaceships:
                         if ship.name.lower() == ship_name:
@@ -377,18 +376,18 @@ while True:
                     for ship in fleet.spaceships:
                         ship.display_crew()
                 case _:
-                    print("Choix invalide.")
+                    print("\nChoix invalide.")
 
         case "5":  # Autres actions
             print("\n=== AUTRES ACTIONS ===")
             print("1. Vérifier la préparation d'un vaisseau")
             print("2. Sauvegarder la flotte")
             print("3. Charger la flotte")
-            print("4. Faire agir un membre")
+            print("4. Faire agir un membre\n")
             sub_choice = input("Votre choix : ")
             match sub_choice:
                 case "1":
-                    ship_name = input("Nom du vaisseau : ").strip().lower()
+                    ship_name = input("\nNom du vaisseau : ").strip().lower()
                     found = False
                     for ship in fleet.spaceships:
                         if ship.name.lower() == ship_name:
@@ -407,9 +406,9 @@ while True:
                     try:
                         fleet = load_data("data.json")
                     except FileNotFoundError:
-                        print("Le fichier est introuvable.")
+                        print("\nLe fichier est introuvable.")
                 case "4":
-                    ship_name = input("Nom du vaisseau : ").strip().lower()
+                    ship_name = input("\nNom du vaisseau : ").strip().lower()
                     found = False
                     for ship in fleet.spaceships:
                         if ship.name.lower() == ship_name:
@@ -439,11 +438,11 @@ while True:
                     if not found:
                         print(f"Aucun membre nommé {member_name} n'a été trouvé dans le vaisseau {ship_name}.")
                 case _:
-                    print("Choix invalide.")
+                    print("\nChoix invalide.")
 
         case "0":
-            print("Au revoir 👋")
+            print("\nAu revoir 👋")
             break
 
         case _:
-            print("Choix invalide, réessayez.")
+            print("\nChoix invalide, réessayez.")
