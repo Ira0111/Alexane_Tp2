@@ -441,7 +441,7 @@ while True:
                     print("\nChoix invalide.")
 
         case "0":
-            print("\nAu revoir 👋")
+            print("\nAu revoir :)")
             break
 
         case _:
