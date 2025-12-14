@@ -24,7 +24,6 @@ def custom_serializer(obj):
             "_Fleet__name": obj.name,
             "_Fleet__spaceships": obj.spaceships
         }
-    # Pour Operator et Mentalist, on laisse __dict__ car c'est déjà bien écrit
     return obj.__dict__
 
 def load_data(file_name="data.json"):
@@ -72,7 +71,8 @@ while True:
     print("1. Ajouter")
     print("2. Supprimer")
     print("3. Modifier")
-    print("4. Autres actions")
+    print("4. Afficher")
+    print("5. Autres actions")
     print("0. Quitter")
 
     choice = input("Votre choix : ")
@@ -266,14 +266,11 @@ while True:
                 case _:
                     print("Choix invalide.")
 
-        case "4":  # Autres actions
-            print("\n=== AUTRES ACTIONS ===")
+        case "4":  # Afficher
+            print("\n=== AFFICHER ===")
             print("1. Afficher l'équipage d'un vaisseau")
-            print("2. Vérifier la préparation d'un vaisseau")
-            print("3. Afficher les statistiques de la flotte")
-            print("4. Sauvegarder la flotte")
-            print("5. Afficher la flotte")
-            print("6. Faire agir un membre")
+            print("2. Afficher les statistiques de la flotte")
+            print("3. Afficher la flotte")
             sub_choice = input("Votre choix : ")
             match sub_choice:
                 case "1":
@@ -287,6 +284,22 @@ while True:
                     if not found:
                         print(f"Aucun vaisseau nommé {ship_name} n'a été trouvé.")
                 case "2":
+                    fleet.statistics()
+                case "3":
+                    for ship in fleet.spaceships:
+                        ship.display_crew()
+                case _:
+                    print("Choix invalide.")
+
+        case "5":  # Autres actions
+            print("\n=== AUTRES ACTIONS ===")
+            print("1. Vérifier la préparation d'un vaisseau")
+            print("2. Sauvegarder la flotte")
+            print("3. Charger la flotte")
+            print("4. Faire agir un membre")
+            sub_choice = input("Votre choix : ")
+            match sub_choice:
+                case "1":
                     ship_name = input("Nom du vaisseau : ").strip().lower()
                     found = False
                     for ship in fleet.spaceships:
@@ -299,18 +312,14 @@ while True:
                             break
                     if not found:
                         print(f"Aucun vaisseau nommé {ship_name} n'a été trouvé.")
-                case "3":
-                    fleet.statistics()
-                case "4":
+                case "2":
                     save_data(fleet, "data.json")
-                case "5":
+                case "3":
                     try:
                         fleet = load_data("data.json")
-                        for ship in fleet.spaceships:
-                            ship.display_crew()
                     except FileNotFoundError:
                         print("Le fichier est introuvable.")
-                case "6":
+                case "4":
                     ship_name = input("Nom du vaisseau : ").strip().lower()
                     found = False
                     for ship in fleet.spaceships:
