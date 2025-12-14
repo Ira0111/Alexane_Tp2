@@ -52,7 +52,7 @@ class Fleet:
                 num_merchant += 1
             if ship.shipType.lower() == "guerre":
                 num_guerre += 1    
-            if ship.condition.lower() == "bon état":
+            if ship.condition.lower() == "opérationnel":
                 num_operational += 1
             else:
                 num_damaged += 1

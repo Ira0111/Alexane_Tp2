@@ -3,7 +3,46 @@ from classes.Operator import *
 from classes.Mentalist import *
 from classes.Spaceship import *
 from classes.Fleet import *
-import json, ast
+import json, random
+
+def trigger_random_event(fleet):
+    if random.randint(1, 5) == 1:
+        event_num = random.randint(1, 5)
+        if event_num == 1:
+            operational_ships = [s for s in fleet.spaceships if s.condition.lower() == "opérationnel"]
+            if operational_ships:
+                ship = random.choice(operational_ships)
+                ship.condition = "endommagé"
+                print(f"Événement aléatoire : Attaque pirate ! Le vaisseau {ship.name} est endommagé.")
+                save_data(fleet)
+        elif event_num == 2:
+            for s in fleet.spaceships:
+                if s.condition.lower() == "opérationnel":
+                    s.condition = "endommagé"
+            print("Événement aléatoire : Tempête spatiale ! Tous les vaisseaux opérationnels sont endommagés.")
+            save_data(fleet)
+        elif event_num == 3:
+            marchands = [m for s in fleet.spaceships for m in s.crew if isinstance(m, Operator) and m.role == "marchand"]
+            if marchands:
+                marchand = random.choice(marchands)
+                marchand.experience += 1
+                print(f"Événement aléatoire : Rencontre marchande ! {marchand.first_name} {marchand.last_name} gagne 1 point d'expérience.")
+                save_data(fleet)
+        elif event_num == 4:
+            operators = [m for s in fleet.spaceships for m in s.crew if isinstance(m, Operator)]
+            if operators:
+                op = random.choice(operators)
+                if op.experience > 0:
+                    op.experience -= 1
+                    print(f"Événement aléatoire : Dysfonctionnement technique ! {op.first_name} {op.last_name} perd 1 point d'expérience.")
+                    save_data(fleet)
+        elif event_num == 5:
+            mentalists = [m for s in fleet.spaceships for m in s.crew if isinstance(m, Mentalist)]
+            if mentalists:
+                mentalist = random.choice(mentalists)
+                mentalist.mana = min(100, mentalist.mana + 10)
+                print(f"Événement aléatoire : Bonne nouvelle ! {mentalist.first_name} {mentalist.last_name} gagne 10 points de mana.")
+                save_data(fleet)
 
 def save_data(fleet, file_name="data.json"):
     with open(file_name, "w", encoding="utf-8") as file:
@@ -86,11 +125,16 @@ while True:
             match sub_choice:
                 case "1":
                     ship_name = input("Nom du vaisseau : ")
-                    ship_type = input("Type du vaisseau (marchand/guerre) : ")
+                    ship_type = input("Type du vaisseau (marchand/guerre) : ").strip().lower()
+                    valid_types = ["marchand", "guerre"]
+                    while ship_type not in valid_types:
+                        print("Type invalide. Veuillez entrer 'marchand' ou 'guerre'.")
+                        ship_type = input("Type du vaisseau (marchand/guerre) : ").strip().lower()
                     ship = Spaceship(ship_name, ship_type)
                     fleet.append_spaceship(ship)
                     print(f"Le vaisseau {ship.name} a été ajouté dans la flotte {fleet.name}")
                     save_data(fleet)
+                    trigger_random_event(fleet)
                 case "2":
                     ship_name = input("Nom du vaisseau : ").strip().lower()
                     found = False
@@ -142,10 +186,11 @@ while True:
                             ship.append_member(crew_member)
                             print(f"{crew_member.first_name} {crew_member.last_name} à été ajouté à l'équipage du vaisseau {ship.name}")
                             save_data(fleet)
+                            trigger_random_event(fleet)
                             found = True
                             break
                     if not found:
-                        print(f"Aucun vaisseau nommé{ship_name}n'a été trouvé.")
+                        print(f"Aucun vaisseau nommé {ship_name} n'a été trouvé.")
                 case _:
                     print("Choix invalide.")
 
@@ -159,6 +204,7 @@ while True:
                     ship_name = input("Nom du vaisseau à supprimer : ").strip().lower()
                     if fleet.remove_spaceship(ship_name):
                         save_data(fleet)
+                        trigger_random_event(fleet)
                 case "2":
                     ship_name = input("Nom du vaisseau : ").strip().lower()
                     last_name = input("Nom du membre à supprimer : ").strip().lower()
@@ -167,6 +213,7 @@ while True:
                         if ship.name.lower() == ship_name:
                             ship.remove_member(last_name)
                             save_data(fleet)
+                            trigger_random_event(fleet)
                             found = True
                             break
                     if not found:
@@ -349,6 +396,7 @@ while True:
                                 print("Le vaisseau est prêt !")
                             else:
                                 print("Le vaisseau n'est pas prêt.")
+                            trigger_random_event(fleet)
                             found = True
                             break
                     if not found:
@@ -369,7 +417,12 @@ while True:
                             for member in ship.crew:
                                 if member.last_name.lower() == member_name:
                                     if isinstance(member, Operator):
-                                        member.act()
+                                        if member.role == "technicien" and ship.condition.lower() != "opérationnel":
+                                            ship.condition = "opérationnel"
+                                            print(member.first_name, member.last_name, "répare le vaisseau", ship.name)
+                                            save_data(fleet)
+                                        else:
+                                            member.act()
                                     elif isinstance(member, Mentalist):
                                         operator_name = input("Nom de l'opérateur à influencer : ").strip().lower()
                                         for op in ship.crew:
@@ -378,6 +431,7 @@ while True:
                                                 break
                                         else:
                                             print("Opérateur non trouvé.")
+                                    trigger_random_event(fleet)
                                     found = True
                                     break
                             if found:
